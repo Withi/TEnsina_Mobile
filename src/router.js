@@ -1,5 +1,11 @@
 import React from 'react';
-import {View, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
 
 import {
   createAppContainer,
@@ -7,6 +13,7 @@ import {
   NavigationActions,
 } from 'react-navigation';
 
+import {createDrawerNavigator} from 'react-navigation-drawer';
 import {createStackNavigator} from 'react-navigation-stack';
 
 import Login from './pages/login';
@@ -15,6 +22,11 @@ import Home from './pages/home';
 import {colors} from './styles';
 
 import {saveLogado} from './asyncStorage';
+
+import HeaderLogo from './components/HeaderLogo';
+import NavigationDrawerStructure from './components/Menu';
+import HeaderMenu from './components/HeaderMenu';
+import NavigationMenu from './components/NavigationMenu';
 
 logout = navigation => {
   saveLogado(false);
@@ -35,11 +47,10 @@ const NavigationStack = createStackNavigator(
     Home: {
       screen: Home,
       navigationOptions: ({navigation}) => ({
-        title: 'Tarefas',
         headerLayoutPreset: 'center',
         headerTitleStyle: {flex: 1, justifyContent: 'center'},
         headerStyle: {
-          backgroundColor: 'colors.white',
+          backgroundColor: colors.secundary,
           elevation: 0,
           shadowOpacity: 0,
           shadowRadius: 0,
@@ -49,8 +60,8 @@ const NavigationStack = createStackNavigator(
           },
           borderBottomWidth: 0,
         },
-        headerTintColor: colors.black,
-        headerRight: (
+        headerTintColor: '#fff',
+        headerLeft: (
           <View
             style={{
               flex: 1,
@@ -58,16 +69,10 @@ const NavigationStack = createStackNavigator(
               alignItems: 'center',
               marginLeft: 20,
             }}>
-            <TouchableOpacity
-              onPress={() => {
-                this.logout(navigation);
-              }}>
-              <Image
-                style={{width: 30, height: 30, marginRight: 10}}
-                source={require('./images/logoToolbar.png')}></Image>
-            </TouchableOpacity>
+            <NavigationDrawerStructure navigationProps={navigation} />
           </View>
         ),
+        headerTitle: () => <HeaderLogo></HeaderLogo>,
       }),
     },
   },
@@ -76,15 +81,40 @@ const NavigationStack = createStackNavigator(
   }
 );
 
+const Menu = createDrawerNavigator(
+  {
+    MenuHome: {
+      screen: NavigationStack,
+      navigationOptions: {
+        drawerLabel: 'Home',
+      },
+    },
+  },
+  {
+    initialRouteName: 'MenuHome',
+    contentComponent: props => {
+      return (
+        <ScrollView style={{flex: 1, backgroundColor: colors.white}}>
+          <SafeAreaView
+            forceInset={{flex: 1, top: 'always', horizontal: 'never'}}>
+            <HeaderMenu {...props} />
+            <NavigationMenu {...props} />
+          </SafeAreaView>
+        </ScrollView>
+      );
+    },
+  }
+);
+
 const createNavigator = (userLogged = false) =>
   createAppContainer(
     createSwitchNavigator(
       {
         Login,
-        NavigationStack,
+        Menu,
       },
       {
-        initialRouteName: userLogged ? 'Login' : 'NavigationStack',
+        initialRouteName: userLogged ? 'Login' : 'Menu',
       }
     )
   );

@@ -13,7 +13,7 @@ export default {
   lightGray: '#E8E8E8',
 
   primary: '#C0FDFB',
-  secundary: '#124559',
+  secundary: '#12455980',
   sucess: '#9DCA83',
   danger: '#E37a7a',
   blueDark: '#1d2648',
