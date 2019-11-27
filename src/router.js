@@ -73,6 +73,14 @@ const NavigationStack = createStackNavigator(
           </View>
         ),
         headerTitle: () => <HeaderLogo></HeaderLogo>,
+        headerRight: () => (
+          <View style={{height: 30, width: 30, marginRight: 10}}>
+            <Image
+              source={require('./images/qr-code.png')}
+              style={{height: 30, width: 30}}
+            />
+          </View>
+        ),
       }),
     },
   },
