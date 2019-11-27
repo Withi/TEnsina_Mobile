@@ -122,7 +122,7 @@ const createNavigator = (userLogged = false) =>
         Menu,
       },
       {
-        initialRouteName: userLogged ? 'Login' : 'Menu',
+        initialRouteName: userLogged ? 'Menu' : 'Login',
       }
     )
   );
