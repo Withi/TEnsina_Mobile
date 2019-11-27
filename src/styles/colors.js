@@ -12,8 +12,8 @@ export default {
   blue: '#1281D0',
   lightGray: '#E8E8E8',
 
-  primary: '#1E345e',
-  secundary: '#1D2648',
+  primary: '#C0FDFB',
+  secundary: '#124559',
   sucess: '#9DCA83',
   danger: '#E37a7a',
   blueDark: '#1d2648',

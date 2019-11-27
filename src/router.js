@@ -1,3 +1,6 @@
+import React from 'react';
+import {View, Image, TouchableOpacity} from 'react-native';
+
 import {
   createAppContainer,
   createSwitchNavigator,
@@ -47,6 +50,24 @@ const NavigationStack = createStackNavigator(
           borderBottomWidth: 0,
         },
         headerTintColor: colors.black,
+        headerRight: (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginLeft: 20,
+            }}>
+            <TouchableOpacity
+              onPress={() => {
+                this.logout(navigation);
+              }}>
+              <Image
+                style={{width: 30, height: 30, marginRight: 10}}
+                source={require('./images/logoToolbar.png')}></Image>
+            </TouchableOpacity>
+          </View>
+        ),
       }),
     },
   },
@@ -63,7 +84,7 @@ const createNavigator = (userLogged = false) =>
         NavigationStack,
       },
       {
-        initialRouteName: userLogged ? 'NavigationStack' : 'Login',
+        initialRouteName: userLogged ? 'Login' : 'NavigationStack',
       }
     )
   );
