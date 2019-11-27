@@ -64,7 +64,7 @@ const NavigationStack = createStackNavigator(
               }}>
               <Image
                 style={{width: 30, height: 30, marginRight: 10}}
-                source={require('./images/logoToolbar.png')}></Image>
+                source={require('./images/logoToolbar.png')} />
             </TouchableOpacity>
           </View>
         ),
@@ -84,7 +84,7 @@ const createNavigator = (userLogged = false) =>
         NavigationStack,
       },
       {
-        initialRouteName: userLogged ? 'Login' : 'NavigationStack',
+        initialRouteName: userLogged ? 'NavigationStack' : 'Login',
       }
     )
   );
